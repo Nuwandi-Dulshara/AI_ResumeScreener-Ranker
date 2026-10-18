@@ -27,7 +27,14 @@ SECRET_KEY = 'django-insecure-)f-@mqn47(3b6wbm4@k23c_l6=rkl1ux65@40o5rvnu#@3tu3s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv(
+        "DJANGO_ALLOWED_HOSTS",
+        "localhost,127.0.0.1,testserver",
+    ).split(",")
+    if host.strip()
+]
 
 
 # Application definition
@@ -47,6 +54,10 @@ INSTALLED_APPS = [
 
     # Local apps
     "inventory",
+    "accounts",
+    "purchases",
+    "sales",
+    "reports",
 ]
 
 
@@ -143,5 +154,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
-
 
